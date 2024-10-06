@@ -1,86 +1,92 @@
 # Blackjack Game – Java Project
 
 ## Overview
-This project is a fully-functional **Blackjack** game implemented in **Java**, where users can play against a dealer following the classic rules of Blackjack. The game simulates the interactions between players, the dealer, and the deck of cards, providing a smooth and engaging experience. This project demonstrates object-oriented programming (OOP) principles, game logic, and strategic decision-making in Java.
+This project is a fully-functional **Blackjack** game implemented in **Java**, where users can play against both human players and **AI-controlled computer players**. The game features advanced AI behavior that allows the computer players to make strategic decisions based on predefined logic. With support for multiple strategies and standard Blackjack rules, this project showcases object-oriented programming (OOP), game logic, and AI-driven decision-making.
 
 ## Features
-- **Multiple Player Support**: Players can either be human or computer-based, each with their own strategies.
-- **Dealer AI**: The dealer follows the conventional rules of Blackjack and deals cards automatically.
-- **Strategic Decision Making**: The program includes a `BlackjackStrategy` interface, allowing players (especially computer-controlled) to make decisions based on predefined or custom strategies.
-- **Card Deck Simulation**: Uses the `PlayingCard` class to represent a full deck of cards, shuffled and dealt to both the dealer and players.
-- **Game Logic**: Implements all the standard rules of Blackjack, including busts, card values (face cards, Aces), and betting mechanisms.
-- **OOP Design**: The game is structured with clear OOP principles, including inheritance, interfaces, and encapsulation.
+- **AI-Powered Computer Players**: Implements various strategies using the `BlackjackStrategy` interface to allow computer players to make optimal decisions during the game.
+- **Dealer AI**: The dealer follows traditional Blackjack rules, automatically handling card dealing and deciding when to hit or stand.
+- **Dynamic Strategies**: Allows for different strategies to be used by computer players, such as the predefined `MySimpleStrategy`, enabling more sophisticated decision-making during gameplay.
+- **Card Deck Simulation**: The deck of cards is simulated using the `PlayingCard` class, which deals cards to both players and the dealer.
+- **Multiple Player Support**: Supports human players and computer-controlled opponents.
+- **OOP Design**: Uses inheritance, encapsulation, and interfaces to structure the game logically, ensuring reusability and modularity.
+
+## AI and Strategy
+The project includes an AI system for computer-controlled players, leveraging the `BlackjackStrategy` interface to drive decision-making. This provides flexibility in defining different strategies that a computer player can follow, creating varying levels of difficulty and strategic depth.
+
+### Key AI Features:
+- **`BlackjackStrategy` Interface**: Defines a common interface that any strategy must implement, including the ability to decide when to hit or stand based on the current game state.
+- **`MySimpleStrategy` Implementation**: A basic strategy that the AI uses to decide whether to hit or stand. For example, the AI may decide to stand if the hand value is above 16 and hit otherwise. This can be expanded to incorporate more complex strategies.
+- **AI Decision-Making**: Computer players analyze the current hand and compare it with predefined strategy rules to make intelligent decisions on whether to draw more cards or stand. This behavior simulates real-world strategic thinking and adds a layer of difficulty to the game.
+- **Extensibility**: New strategies can be added by implementing the `BlackjackStrategy` interface, allowing for future development of more advanced AI behaviors such as card counting or probabilistic decision-making.
 
 ## Classes and Structure
-The project includes several key classes, each handling different aspects of the game:
+The project is divided into several core classes, each responsible for different parts of the game:
 
-- **`BlackjackDealer.java`**: Represents the dealer in the game, handling card dealing and following the dealer's rules for hitting or standing.
-- **`BlackjackHand.java`**: Manages the cards in a player's hand, calculating the hand value, handling Aces, and determining if the hand is a bust.
-- **`BlackjackPlayer.java`**: Abstract base class for all players in the game, defining common behaviors such as drawing cards and deciding whether to hit or stand.
-- **`ComputerBlackjackPlayer.java`**: Extends `BlackjackPlayer`, representing a computer-controlled player that uses a specific strategy to play the game.
-- **`HumanBlackjackPlayer.java`**: Extends `BlackjackPlayer`, representing a human player who manually makes decisions during the game.
-- **`PlayingCard.java`**: Represents a single playing card in the deck, with suit and rank properties.
-- **`BlackjackStrategy.java`**: Interface defining a strategy that a player can follow when deciding whether to hit or stand.
-- **`MySimpleStrategy.java`**: Implements `BlackjackStrategy`, providing a simple strategy that computer players can follow.
-- **`Driver.java`**: The main class that initializes the game, handles user inputs, and starts the game loop.
-- **`Hand.java`**: A generic class for handling any type of card hand, which is extended by `BlackjackHand` for Blackjack-specific functionality.
+- **`BlackjackDealer.java`**: Represents the dealer, handling the game logic for dealing cards and following standard Blackjack rules (e.g., the dealer stands on 17 or higher).
+- **`BlackjackHand.java`**: Manages a player's hand, calculates the value of the cards, and determines if the hand is a bust or if special cases (like Aces) need to be handled.
+- **`BlackjackPlayer.java`**: An abstract class representing the common behavior for all players, including both human and computer-controlled players.
+- **`ComputerBlackjackPlayer.java`**: Extends `BlackjackPlayer` and represents the AI-powered player. This class makes decisions based on the strategy it is assigned.
+- **`HumanBlackjackPlayer.java`**: Extends `BlackjackPlayer`, representing a human player who manually interacts with the game by deciding whether to hit or stand.
+- **`PlayingCard.java`**: Represents individual playing cards and defines their suit, rank, and value.
+- **`BlackjackStrategy.java`**: An interface that defines the decision-making process for AI players, allowing different strategies to be plugged into the game.
+- **`MySimpleStrategy.java`**: A basic implementation of the `BlackjackStrategy` interface that follows simple rules to decide whether to hit or stand.
+- **`Driver.java`**: The main entry point of the game, responsible for setting up the game, initializing players, and running the gameplay loop.
 
 ## How It Works
-1. **Dealer and Player Setup**: The game starts by initializing a dealer and one or more players (human or computer). Players are assigned hands, and a deck of cards is shuffled.
-2. **Gameplay Loop**: Players take turns drawing cards, deciding whether to hit or stand based on their strategy or user input. The dealer plays according to standard Blackjack rules (hits below 17, stands on 17 or higher).
-3. **Hand Evaluation**: After all players and the dealer have taken their turns, the hands are evaluated. The highest hand under 21 wins, and players who go over 21 bust and lose automatically.
-4. **Strategy Execution**: Computer players follow their assigned strategy (e.g., `MySimpleStrategy`) to decide whether to hit or stand during their turn.
-5. **Endgame**: The game continues until players decide to stop, after which results are displayed, including the outcomes of all hands.
+1. **Dealer and Player Setup**: The game initializes with a dealer and one or more players, which can either be human-controlled or AI-powered.
+2. **AI Decision Making**: For AI players, the `BlackjackStrategy` interface is used to make decisions on whether to hit or stand, providing intelligent decision-making during gameplay.
+3. **Gameplay Loop**: Each player takes turns deciding whether to hit or stand. The dealer follows standard rules (hits until reaching at least 17). AI players use their strategy to guide their actions.
+4. **End of Round**: After all players and the dealer have taken their turns, the game compares hand values to determine the winner.
 
 ## Installation
 
 ### Prerequisites
-- **Java Development Kit (JDK)**: Ensure that JDK 8 or higher is installed on your machine.
-- A command-line interface or an IDE like **Eclipse** or **IntelliJ IDEA** to run the project.
+- **Java Development Kit (JDK)**: Ensure JDK 8 or higher is installed.
+- Use an IDE (like Eclipse or IntelliJ IDEA) or the command line to run the project.
 
 ### Steps to Install and Run
-1. Clone the repository to your local machine:
+1. Clone the repository:
    ```bash
    git clone https://github.com/Jiming-C/Blackjack.git
    ```
-2. Open the project in your preferred IDE or compile the `.java` files using the command line:
+2. Compile the Java files:
    ```bash
    javac *.java
    ```
-3. Run the `Driver` class to start the Blackjack game:
+3. Run the main class:
    ```bash
    java Driver
    ```
 
 ## Usage
 
-1. **Starting the Game**: After running the `Driver.java` class, the game will initialize and prompt human players for input.
-2. **Playing as a Human**: Players can decide whether to hit, stand, or perform other Blackjack actions (e.g., split, double down, etc., depending on the version you implemented).
-3. **Computer Players**: Computer-controlled players follow the strategy defined in `MySimpleStrategy.java` or any other strategy class that implements the `BlackjackStrategy` interface.
-4. **Dealer Logic**: The dealer automatically plays by hitting until their hand totals at least 17 points.
-5. **Game Results**: Once all players and the dealer have completed their turns, the results are displayed, indicating which player won or lost.
+1. **Human Players**: Interact with the game by deciding whether to hit, stand, or take other actions.
+2. **Computer Players**: Automatically make decisions based on their strategy. The predefined `MySimpleStrategy` is used by default, but other strategies can be implemented.
+3. **Dealer Logic**: The dealer plays according to Blackjack rules, automatically hitting until their hand reaches at least 17.
+4. **Game Results**: At the end of the round, the hand values are compared, and the game announces the winner.
 
 ## Key Concepts
-- **Object-Oriented Programming**: This project uses OOP principles such as inheritance, interfaces, and polymorphism. The `BlackjackPlayer` class is extended by `HumanBlackjackPlayer` and `ComputerBlackjackPlayer`, promoting code reusability.
-- **Game AI**: The `ComputerBlackjackPlayer` makes decisions based on strategies, showcasing basic AI concepts.
-- **Deck of Cards**: The `PlayingCard` class and the management of hands demonstrate how to simulate a real-life deck of cards and gameplay mechanics in code.
+- **Artificial Intelligence (AI)**: Computer-controlled players use predefined strategies to simulate decision-making during the game.
+- **Object-Oriented Programming (OOP)**: The project is structured using OOP principles like inheritance, polymorphism, and encapsulation, promoting code reuse and clarity.
+- **Game Logic**: All Blackjack rules are implemented, including handling special cards (Aces) and player actions like hitting, standing, and busting.
+- **Deck Management**: The `PlayingCard` class simulates a real-life deck of cards, shuffling and dealing cards to players.
 
 ## Future Improvements
-- **Advanced AI Strategies**: Implement more sophisticated strategies for computer players to enhance their decision-making during gameplay.
-- **Graphical User Interface (GUI)**: Add a graphical interface to replace the command-line input/output, making the game more interactive and user-friendly.
-- **Multiplayer Support**: Expand the game to allow multiple human players to join and play simultaneously.
-- **Betting System**: Introduce a betting system where players can place bets before each round and track winnings or losses.
+- **Advanced AI Strategies**: Introduce more complex AI strategies such as card counting or probabilistic decision-making.
+- **GUI Development**: Replace the command-line interface with a graphical user interface (GUI) for better user experience.
+- **Multiplayer Capabilities**: Expand the game to support multiple human players playing against each other.
+- **Betting System**: Implement a system for placing bets before each round and tracking player earnings.
 
 ## Contact Information
-For any questions, issues, or contributions, feel free to reach out:
+For questions, issues, or contributions, feel free to reach out:
 
 - **Email**: [jimingchen2015@gmail.com](mailto:jimingchen2015@gmail.com)
 - **GitHub**: [Jiming-C](https://github.com/Jiming-C)
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. For more details, see the [LICENSE](LICENSE) file.
 
 ---
 
-Thank you for checking out this project! If you're interested in contributing or have any suggestions for improvement, feel free to open a pull request or contact me directly.
-```
+Thank you for viewing this project! Feel free to explore, contribute, or provide feedback. I am open to suggestions and collaborations for future enhancements.
